@@ -75,7 +75,7 @@ io.sockets.on('connection', function(socket) {
            "target": msg.target});
     } else {
       // Look up the socket id
-      io.sockets.sockets[clients[msg.target]].emit('message', 
+      io.sockets.connected[clients[msg.target]].emit('message', 
           {"source": srcUser,
            "message": msg.message,
            "target": msg.target});
@@ -93,7 +93,7 @@ io.sockets.on('connection', function(socket) {
 
 function userJoined(uName) {
 	Object.keys(socketsOfClients).forEach(function(sId) {
-		io.sockets.sockets[sId].emit('userJoined', { "userName": uName });
+		io.sockets.connected[sId].emit('userJoined', { "userName": uName });
 	})
 }
 
@@ -105,12 +105,12 @@ function userNameAvailable(sId, uName) {
   setTimeout(function() {
     console.log('Sending welcome msg to ' + uName + ' at ' + sId);
 	
-    io.sockets.sockets[sId].emit('welcome', { "userName" : uName, "currentUsers": JSON.stringify(Object.keys(clients)) });
+    io.sockets.connected[sId].emit('welcome', { "userName" : uName, "currentUsers": JSON.stringify(Object.keys(clients)) });
   }, 500);
 }
 
 function userNameAlreadyInUse(sId, uName) {
   setTimeout(function() {
-    io.sockets.sockets[sId].emit('error', { "userNameInUse" : true });
+    io.sockets.connected[sId].emit('error', { "userNameInUse" : true });
   }, 500);
 }
