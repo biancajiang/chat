@@ -3,11 +3,15 @@ chat
 
 A simple chat application developed using Node.js and socket.io. 
 
-1. This application has been deployed on IBM Bluemix: 
+SERVER
+
+This application has been deployed on IBM Bluemix: 
 
   http://bianca-node-chat.mybluemix.net/chat
 
-2. To get the source code of this application:
+SOURCE CODE
+
+To get the source code of this application:
   1) Clone the GitHub repo. (install and setup Git client: https://help.github.com/articles/set-up-git/)
   
       $ git clone https://github.com/biancajiang/chat.git
@@ -16,7 +20,10 @@ A simple chat application developed using Node.js and socket.io.
       $ cd git/chat
 This application was originally from https://github.com/vijayannadi/chat, with updates and improvements.
 
-3. To deploy this chat application on IBM Bluemix:
+DEPLOY
+
+To deploy this chat application on IBM Bluemix:
+
   1) From bluemix.net catalog, select "SDK for Node.js runtime from IBM". 
   2) Create a new Node.js application on bluemix by giving it an app name "node-chat", and a host name <prefix>-node-chat.
   3) Install Cloud Foundry Command Line from https://www.ng.bluemix.net/docs/#starters/install_cli.html 
@@ -31,16 +38,19 @@ After about 30 seconds your node-chat app should be deployed to Bluemix. The cha
 
       http://<prefix>-node-chat.mybluemix.net/chat
 
-4. Unit Tests
+UNIT TESTS
+
   Three server unit tests are available from /test/chatTest.js, using unit.js framework:
+
     1) server broadcasts to all users when a new user is added
     2) serer broadcasts group message to all
     3) server sends private message from one user to another
   To run the tests:
+  
     1) load the source as decribed above
     2) run "npm install"
     3) start a local server by running "node app.js"
-    3) from a new terminal window, run "mocha -R spec"
+    4) from a new terminal window, run "mocha -R spec"
 
 
 TODO:
