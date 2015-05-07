@@ -30,7 +30,8 @@ function handleUserLeft(msg) {
 	$("select#users option[value='" + msg.userName + "']").remove();
 }
 
-socket = io.connect("http://localhost:3000");
+//socket = io.connect("http://bianca-node-chat.mybluemix.net");
+socket = io.connect("localhost:3000");
 
 function setFeedback(fb) {
   $('span#feedback').html(fb);
@@ -79,7 +80,7 @@ $(function() {
   });
 
   socket.on('welcome', function(msg) {
-	setFeedback("<span style='color: green'> Username available. You can begin chatting.</span>");
+	setFeedback("<span style='color: green'> Welcome! You can begin chatting. Use a new browser tab or window to add a new user to the chat.</span>");
 	setCurrentUsers(msg.currentUsers)
     enableMsgInput(true);
 	enableUsernameField(false);

@@ -33,26 +33,34 @@ app.get('/', routes.index);
 app.get('/chat', chat.main);
 app.get('/users', user.list);
 
-var server = app.listen(app.get('port'), function(){
-  console.log("Express server listening on port " + app.get('port'));
-});
+//var server = app.listen(app.get('port'), function(){
+//  console.log("Express server is listening on port " + app.get('port'));
+//});
 
-var io = socketio.listen(server);
+//var io = socketio.listen(server);
+http = http.Server(app);
+var io = socketio(http);
+http.listen(3000, function(){
+  console.log("Express server is listening on port " + 3000);
+});
 
 var clients = {};
 var socketsOfClients = {};
 
-io.sockets.on('connection', function(socket) {
+io.on('connection', function(socket) {
+	console.log("new user connected.");
+	io.emit('connect');
   socket.on('set username', function(userName) {
+	console.log("setting user: " + userName);
     // Is this an existing user name?
     if (clients[userName] === undefined) {
       // Does not exist ... so, proceed
-      clients[userName] = socket.id;
+      clients[userName] = socket;
       socketsOfClients[socket.id] = userName;
       userNameAvailable(socket.id, userName);
 	  userJoined(userName);
     } else
-    if (clients[userName] === socket.id) {
+    if (clients[userName] === socket) {
       // Ignore for now
     } else {
       userNameAlreadyInUse(socket.id, userName);
@@ -69,13 +77,13 @@ io.sockets.on('connection', function(socket) {
     }
     if (msg.target == "All") {
       // broadcast
-      io.sockets.emit('message',
+      io.emit('message',
           {"source": srcUser,
            "message": msg.message,
            "target": msg.target});
     } else {
       // Look up the socket id
-      io.sockets.connected[clients[msg.target]].emit('message', 
+      clients[msg.target].emit('message', 
           {"source": srcUser,
            "message": msg.message,
            "target": msg.target});
@@ -89,28 +97,28 @@ io.sockets.on('connection', function(socket) {
 	// relay this message to all the clients
 	userLeft(uName);
   })
-})
+});
 
 function userJoined(uName) {
 	Object.keys(socketsOfClients).forEach(function(sId) {
-		io.sockets.connected[sId].emit('userJoined', { "userName": uName });
+		io.emit('userJoined', { "userName": uName });
 	})
-}
+};
 
 function userLeft(uName) {
-    io.sockets.emit('userLeft', { "userName": uName });
-}
+    io.emit('userLeft', { "userName": uName });
+};
 
 function userNameAvailable(sId, uName) {
   setTimeout(function() {
     console.log('Sending welcome msg to ' + uName + ' at ' + sId);
 	
-    io.sockets.connected[sId].emit('welcome', { "userName" : uName, "currentUsers": JSON.stringify(Object.keys(clients)) });
+    io.emit('welcome', { "userName" : uName, "currentUsers": JSON.stringify(Object.keys(clients)) });
   }, 500);
-}
+};
 
 function userNameAlreadyInUse(sId, uName) {
   setTimeout(function() {
-    io.sockets.connected[sId].emit('error', { "userNameInUse" : true });
+    io.emit('error', { "userNameInUse" : true });
   }, 500);
 }
