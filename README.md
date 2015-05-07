@@ -39,7 +39,8 @@ After about 30 seconds your node-chat app should be deployed to Bluemix. The cha
   To run the tests:
     1) load the source as decribed above
     2) run "npm install"
-    3) run "mocha -R spec"
+    3) start a local server by running "node app.js"
+    3) from a new terminal window, run "mocha -R spec"
 
 
 TODO:
