@@ -1,4 +1,9 @@
-var socket;
+
+
+//socket = io.connect("http://bianca-node-chat.mybluemix.net");
+//socket = io.connect("localhost:3000");
+
+var socket = io();
 var myUserName;
 
 function enableMsgInput(enable) {
@@ -39,9 +44,6 @@ function handleUserLeft(msg) {
 		}
 	}
 }
-
-//socket = io.connect("http://bianca-node-chat.mybluemix.net");
-socket = io.connect("localhost:3000");
 
 function setFeedback(fb) {
   $('span#feedback').html(fb);

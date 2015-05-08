@@ -2,6 +2,7 @@ var test = require('unit.js');
 var io = require('socket.io-client');
 var server = require('../app');
 
+//var socketURL = 'http://bianca-node-chat.mybluemix.net/';
 var socketURL = 'http://localhost:3000';
 var options = {
 	transports: ['websocket'],
