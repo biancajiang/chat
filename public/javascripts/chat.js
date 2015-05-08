@@ -11,13 +11,16 @@ function enableUsernameField(enable) {
 
 function appendNewMessage(msg) {
   var html;
-  if (msg.target == "All") {
-    html = "<span class='allMsg'>" + msg.source + " : " + msg.message + "</span><br/>"
-  } else {
-    // It is a private message to me
-    html = "<span class='privMsg'>" + msg.source + " (P) : " + msg.message + "</span><br/>"
+  if(myUserName != null)
+  {
+	  if (msg.target == "All") {
+		html = "<span class='allMsg'>" + msg.source + " : " + msg.message + "</span><br/>"
+	  } else {
+		// It is a private message to me
+		html = "<span class='privMsg'>" + msg.source + " (P) : " + msg.message + "</span><br/>"
+	  }
+	  $('#msgWindow').append(html);
   }
-  $('#msgWindow').append(html);
 }
 
 function appendNewUser(uName, notify) {
@@ -27,7 +30,14 @@ function appendNewUser(uName, notify) {
 }
 
 function handleUserLeft(msg) {
-	$("select#users option[value='" + msg.userName + "']").remove();
+	if(msg.userName != undefined && msg.userName != null) {
+		$("select#users option[value='" + msg.userName + "']").remove();	
+		if(msg.userName == myUserName) {
+			enableMsgInput(false);
+			enableUsernameField(false);
+			setFeedback("<span style='color: red'> You are disconnected from chat.</span>");
+		}
+	}
 }
 
 //socket = io.connect("http://bianca-node-chat.mybluemix.net");
@@ -59,7 +69,8 @@ function setCurrentUsers(usersStr) {
 	$('select#users >option').remove()
 	appendNewUser('All', false)
 	JSON.parse(usersStr).forEach(function(name) {
-		appendNewUser(name, false);
+		if(name != undefined && name != null)
+			appendNewUser(name, false);
 	});
 	$('select#users').val('All').attr('selected', true);
 }
@@ -80,10 +91,12 @@ $(function() {
   });
 
   socket.on('welcome', function(msg) {
-	setFeedback("<span style='color: green'> Welcome! You can begin chatting. Use a new browser tab or window to add a new user to the chat.</span>");
-	setCurrentUsers(msg.currentUsers)
-    enableMsgInput(true);
-	enableUsernameField(false);
+	if(msg.currentUsers != undefined && msg.currentUsers.length > 1) {
+		setFeedback("<span style='color: green'> Welcome! You can begin chatting. Use a new browser tab or window to add a new user to the chat.</span>");
+		setCurrentUsers(msg.currentUsers)
+		enableMsgInput(true);
+		enableUsernameField(false);
+	}
   });
 
   socket.on('error', function(msg) {
