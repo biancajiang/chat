@@ -1,8 +1,4 @@
-
-
-//socket = io.connect("http://bianca-node-chat.mybluemix.net");
-//socket = io.connect("localhost:3000");
-
+// by default, socket io client connect to the host that serves the page.
 var socket = io();
 var myUserName;
 
@@ -29,6 +25,9 @@ function appendNewMessage(msg) {
 }
 
 function appendNewUser(uName, notify) {
+	//this client is connected but no user set yet, ignore it
+	if(myUserName == undefined || myUserName == null)
+		return;
   $('select#users').append($('<option></option>').val(uName).html(uName));
   if (notify && (myUserName !== uName) && (myUserName !== 'All'))
     $('span#msgWindow').append("<span class='adminMsg'>==>" + uName + " just joined <==<br/>")
@@ -92,7 +91,10 @@ $(function() {
     appendNewMessage(msg);
   });
 
-  socket.on('welcome', function(msg) {
+  socket.on('welcome', function(msg) {	  
+	//this client is connected but no user set yet, ignore it
+	if(myUserName == undefined || myUserName == null)
+		return;
 	if(msg.currentUsers != undefined && msg.currentUsers.length > 1) {
 		setFeedback("<span style='color: green'> Welcome! You can begin chatting. Use a new browser tab or window to add a new user to the chat.</span>");
 		setCurrentUsers(msg.currentUsers)

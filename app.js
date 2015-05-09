@@ -70,7 +70,7 @@ io.on('connection', function(socket) {
 		  userNameAvailable(socket.id, userName);
 		  userJoined(userName);
 		} else
-		if (clients[userName] === socket) {
+		if (clients[userName].id === socket.id) {
 		  logger.debug(userName + " is already in chat. Do nothing");
 		} else {
 		  logger.error(userName + " is not in chat. But this name is taken");
