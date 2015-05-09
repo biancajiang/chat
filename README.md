@@ -6,10 +6,11 @@ A simple chat application developed using Node.js (nodejs.org), express framewor
 This app has unit test cases on basic server functions using unit.js that can be run by Mocha (unitjs.com).  Its logging uses winston (https://github.com/winstonjs/winston).
 
 What does this simple chat app do:
-  - one chat server can host one chat group only at "http://<server_root>/chat"
+  - each chat server hosts one chat group at "http://[server_root_URL]/chat"
   - connect as a new client in a new tab or browser window
-  - set a new user name from a client to join the group chat
-  - a user can send messages to the group, as well as private messages to another user
+  - set a new user name from a connected client to join the group chat
+  - a user can send messages to the group
+  - a user can send private messages to another user
   - disconnect a client by closing the browser tab or window
  
 What does this simple chat app NOT do:
@@ -20,6 +21,7 @@ What does this simple chat app NOT do:
   - existing clients does not reconnect to server automatically when server restarts (must reload client to create a new connection or start a new client).
   - senders of private messages do not see the messages themselves, only receivers do.
 
+
 SOURCE CODE
 
 1. To get the source code of this application, either clone the GitHub repo "https://github.com/biancajiang/chat.git", or got to https://github.com/biancajiang/chat to download everything as a zip directly.
@@ -29,6 +31,7 @@ SOURCE CODE
   - Client: public/javascripts/chat.js
   - UI: views/chat.jade 
   - unit test: test/chatTest.js
+
 
 DEPLOY
 
@@ -55,6 +58,7 @@ After about 30 seconds your own node-chat app should be deployed to Bluemix. The
 
       http://<prefix>-node-chat.mybluemix.net/chat
 
+
 UNIT TESTS
 
   Three server unit tests are available from /test/chatTest.js, using unit.js framework:
@@ -73,6 +77,7 @@ UNIT TESTS
   
   You should see the three test cases run with results.
 
+
 LOGGING
 
 This app uses winston (https://github.com/winstonjs/winston) for logging.  
@@ -82,9 +87,11 @@ Server app.js produces four kinds of logging: debug, info, warn and error.
 The default logging level is "info". 
 
 Change the logging level by passing in one of "debug", "info", "warn" and "error" when start the server.  e.g.: from the root directory of the source, start the server by running:
-   $ node app.js debug
 
+      $ node app.js debug
+   
 Logging outputs to both the console and file chat.log under the source root directory.
+
 
 TODO:
 - encription (optional)
