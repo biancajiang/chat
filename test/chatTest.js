@@ -17,13 +17,13 @@ describe('Bianca chat server', function() {
 		var client1 = io.connect(socketURL);
 		
 		client1.on('connect', function(data) {
-			console.log('client1 is connected!' + data);
+//			console.log('client1 is connected!' + data);
 			client1.emit('set username', user1);
 			
 			
 		});
 		client1.on('userJoined', function(user){
-			console.log(user['userName'] + ' has joined from client1!');
+//			console.log(user['userName'] + ' has joined from client1!');
 			test.string(user['userName'])
 				.is(user2);
 			client1.disconnect();
@@ -32,11 +32,11 @@ describe('Bianca chat server', function() {
 		
 		var client2 = io.connect(socketURL, options);
 			client2.on('connect', function(data){
-				console.log('client2 is connected!');
+//				console.log('client2 is connected!');
 				client2.emit('set username', user2);
 			});	
 			client2.on('userJoined', function(user){
-				console.log(user['userName'] + ' has joined from client2!');
+//				console.log(user['userName'] + ' has joined from client2!');
 				test.string(user['userName'])
 					.is(user2);
 				client2.disconnect();
@@ -50,7 +50,7 @@ describe('Bianca chat server', function() {
 
 		var checkMessage = function(client){
 		  client.on('message', function(msg){
-			console.log(msg.target + " received: "+msg.message + " from " + msg.source);
+//			console.log(msg.target + " received: "+msg.message + " from " + msg.source);
 			test.string(msg.message).is(message);
 			client.disconnect();
 			messages++;
@@ -97,7 +97,7 @@ describe('Bianca chat server', function() {
 
 		var checkPrivateMessage = function(client){
 		  client.on('message', function(msg){
-			console.log(msg.target + " received from " + msg.source + ": " + msg.message);
+//			console.log(msg.target + " received from " + msg.source + ": " + msg.message);
 			test.string(msg.message).is(message.message);
 			test.string(msg.source).is(user3);
 			test.string(msg.target).is(user1);
@@ -115,19 +115,19 @@ describe('Bianca chat server', function() {
 		checkPrivateMessage(client1);
 
 		client1.on('connect', function(data){
-			console.log("client1 connected!");
+//			console.log("client1 connected!");
 		  client1.emit('set username', user1);
 		  client2 = io.connect(socketURL, options);
 		  checkPrivateMessage(client2);
 
 		  client2.on('connect', function(data){
-			  console.log("client2 connected!");
+//			  console.log("client2 connected!");
 			client2.emit('set username', user2);
 			client3 = io.connect(socketURL, options);
 			checkPrivateMessage(client3);
 
 			client3.on('connect', function(data){
-				console.log("client3 connected!");
+//				console.log("client3 connected!");
 			  client3.emit('set username', user3);
 			  client3.emit('message', message)
 			});
