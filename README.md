@@ -1,7 +1,8 @@
 chat
 ====
 
-A simple chat application developed using Node.js (nodejs.org), express framework (expressjs.com) and socket.io (socket.io).  
+A simple chat application developed using Node.js (nodejs.org), express framework (expressjs.com) and socket.io (socket.io).
+
 This app has unit test cases on basic server functions using unit.js that can be run by Mocha (unitjs.com).  Its logging uses winston (https://github.com/winstonjs/winston).
 
 What does this simple chat app do:
@@ -38,8 +39,11 @@ This application has been deployed on IBM Bluemix and can be accessed from:
 To deploy this chat application on IBM Bluemix as a new application:
 
   1) From bluemix.net catalog, select "SDK for Node.js runtime from IBM". 
+  
   2) Create a new Node.js application on bluemix by giving it an app name "node-chat", and a host name <prefix>-node-chat.
+  
   3) Install Cloud Foundry Command Line from https://www.ng.bluemix.net/docs/#starters/install_cli.html 
+  
   4) Open a terminal window, login to bluemix (apply for free trial bluemix account from: https://bluemix.net/):
   
       $ cf login -a api.ng.bluemix.net
@@ -72,8 +76,11 @@ UNIT TESTS
 LOGGING
 
 This app uses winston (https://github.com/winstonjs/winston) for logging.  
+
 Server app.js produces four kinds of logging: debug, info, warn and error. 
+
 The default logging level is "info". 
+
 Change the logging level by passing in one of "debug", "info", "warn" and "error" when start the server.  e.g.: from the root directory of the source, start the server by running:
    $ node app.js debug
 
