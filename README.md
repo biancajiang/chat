@@ -1,27 +1,38 @@
 chat
 ====
 
-A simple chat application developed using Node.js and socket.io. 
+A simple chat application developed using Node.js (nodejs.org), express framework (expressjs.com) and socket.io (socket.io).  
+This app has unit test cases on basic server functions using unit.js that can be run by Mocha (unitjs.com).  Its logging uses winston (https://github.com/winstonjs/winston).
 
-SERVER
-
-This application has been deployed on IBM Bluemix: 
-
-  http://bianca-node-chat.mybluemix.net/chat
+What does this simple chat app do:
+  - one chat server hosts one chat group only at http://<server_root>/chat
+  - connect as a new client in a new tab or browser window
+  - set a new user name from a client to join group chat
+  - a user can send messages to the group, as well as private messages to another user
+  - disconnect a client by closing the browser tab or window
+ 
+What does this simple chat app NOT do:
+  - can not host multiple chat groups from a server
+  - can not send message among different groups/servers
+  - does not refresh client status automatically when server stops
+  - existing clients does not reconnect to server when server restarts (must reload client to create a new connection or start a new client).
+  - senders of private messages do not see the messages themselves, only receivers do.
 
 SOURCE CODE
 
-To get the source code of this application:
-  1) Clone the GitHub repo. (install and setup Git client: https://help.github.com/articles/set-up-git/)
+1. To get the source code of this application, clone the GitHub repo. 
   
       $ git clone https://github.com/biancajiang/chat.git
-  2) In the terminal window, change your directory to the directory containing the chat code
-  
-      $ cd git/chat
-This application was originally from https://github.com/vijayannadi/chat, with updates and improvements.
+      
+2. This application was forked from https://github.com/vijayannadi/chat, with updates and improvements.
+3. Main files:
 
 DEPLOY
 
+This application has been deployed on IBM Bluemix and can be accessed from: 
+
+  http://bianca-node-chat.mybluemix.net/chat
+  
 To deploy this chat application on IBM Bluemix:
 
   1) From bluemix.net catalog, select "SDK for Node.js runtime from IBM". 
