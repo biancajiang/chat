@@ -41,16 +41,13 @@ This application has been deployed on IBM Bluemix and can be accessed from:
   
 To deploy this chat application on IBM Bluemix as a new application:
 
-  1) From bluemix.net catalog, select "SDK for Node.js runtime from IBM". 
-  
-  2) Create a new Node.js application on bluemix by giving it an app name "node-chat", and a host name <prefix>-node-chat.
-  
-  3) Install Cloud Foundry Command Line from https://www.ng.bluemix.net/docs/#starters/install_cli.html 
-  
-  4) Open a terminal window, login to bluemix (apply for free trial bluemix account from: https://bluemix.net/):
+1. From bluemix.net catalog, select "SDK for Node.js runtime from IBM". 
+2. Create a new Node.js application on bluemix by giving it an app name "node-chat", and a host name <prefix>-node-chat.
+3. Install Cloud Foundry Command Line from https://www.ng.bluemix.net/docs/#starters/install_cli.html 
+4. Open a terminal window, login to bluemix (apply for free trial bluemix account from: https://bluemix.net/):
   
       $ cf login -a api.ng.bluemix.net
-  5) Deploy the application to Bluemix using the Cloud Foundry CLI by running the following command:
+5. Deploy the application to Bluemix using the Cloud Foundry CLI by running the following command:
   
       $ cf push node-chat -c "node app.js"
 
