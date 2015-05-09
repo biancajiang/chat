@@ -19,7 +19,10 @@ What does this simple chat app NOT do:
   - once a user name is set, it can not be changed from the same client
   - does not refresh client status automatically when server stops. Messaging simply stops function.
   - existing clients does not reconnect to server automatically when server restarts (must reload client to create a new connection or start a new client).
+
+Known issues:
   - senders of private messages do not see the messages themselves, only receivers do.
+  - a connected client w/o user set will get into a bad state when a new user set from another client. (bug TODO)
 
 
 SOURCE CODE
